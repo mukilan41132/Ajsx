@@ -1,46 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('includes/head', { title: 'Post title' }) %>
+
+<head>
+  <%- include('includes/head', { title: 'Post title' }) %>
     <link rel="stylesheet" href="/styles/base.css" />
     <link rel="stylesheet" href="/styles/forms.css" />
     <link rel="stylesheet" href="/styles/posts.css" />
-  </head>
+    <script src="/Script/comments.js" defer></script>
+</head>
 
-  <body>
-    <%- include('includes/header') %>
+<body>
+  <%- include('includes/header') %>
     <main id="post-detail">
-      <h1><%= post.title %></h1>
+      <h1>
+        <%= post.title %>
+      </h1>
       <section id="post-meta">
         <address>
-          <a href="mailto:<%= post.author.email %>"><%= post.author.name %></a>
+          <a href="mailto:<%= post.author.email %>">
+            <%= post.author.name %>
+          </a>
         </address>
-        | <time datetime="<%= post.date %>"><%= post.humanReadableDate %></time>
+        | <time datetime="<%= post.date %>">
+          <%= post.humanReadableDate %>
+        </time>
       </section>
       <hr />
       <section>
-        <p id="body"><%= post.body %></p>
+        <p id="body">
+          <%= post.body %>
+        </p>
       </section>
       <section id="comments">
-        <% if (!comments) { %>
-        <p>
-          This post might have comments. You can load them if you want to view
-          them.
-        </p>
-        <form action="/posts/<%= post._id %>/comments" method="GET">
-          <button class="btn btn-alt">Load Comments</button>
-        </form>
-        <% } else if (comments.length === 0) { %>
-          <p>No comments found.</p>
-        <% } else { %>
-          <ol>
-            <% for (const comment of comments) { %>
-              <li>
-                <%- include('includes/comment-item', { comment: comment }) %>
-              </li>
-            <% } %>
-          </ol>
-        <% } %>
+          <p>
+            This post might have comments. You can load them if you want to view
+            them.
+          </p>
+          <button id="loadcomments" class="btn btn-alt" data-postid="<%= post._id %>">Load Comments</button>
       </section>
       <section id="comments-form">
         <h2>Leave a comment</h2>
@@ -57,5 +53,6 @@
         </form>
       </section>
     </main>
-  </body>
+</body>
+
 </html>
